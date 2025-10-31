@@ -22,13 +22,14 @@ EMBEDDING_DIM = 100
 LSTM_UNITS = 64
 
 # Sample reviews for demonstration purposes
+# UPDATED: These samples use highly charged emotional words for near 100% confidence.
 SAMPLE_REVIEWS = {
-    "joy": "I am absolutely thrilled with this purchase! It arrived quickly and works perfectly. Best money spent!",
-    "sadness": "Feeling deeply disappointed that this product broke after only two days. A complete waste of time and effort.",
-    "anger": "This is ridiculous! The quality is trash and the customer service was useless. I demand a full refund NOW.",
-    "fear": "The device started smoking when I plugged it in. I'm genuinely worried about a fire hazard and won't use it again.",
-    "love": "I adore this new phone case. The color is beautiful and it feels so luxurious in my hand. Highly recommend!",
-    "surprise": "Wow, I didn't expect it to be this good! The feature set is far better than advertised. Pleasant surprise!"
+    "joy": "This product makes me so happy and absolutely ecstatic! I'm thrilled!",
+    "sadness": "I feel utterly heartbroken and devastated by this poor quality item.",
+    "anger": "This cheap piece of junk makes me furious! I hate it and want my money back immediately.",
+    "fear": "I am terrified! The warning signs on this are incredibly worrying, I fear using it.",
+    "love": "I absolutely adore this item! I'm completely in love with the quality and design.",
+    "surprise": "Unbelievable! I was totally shocked by how quickly it arrived and how amazing it is. What a surprise!"
 }
 
 # --- Data Loading, Preprocessing, and Model Training (Cached) ---
@@ -96,11 +97,11 @@ def load_and_train_model():
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     
     # 6. Train the Model
-    # INCREASED EPOCHS: Changed from 5 to 20 to allow the model to better learn minority classes
+    # INCREASED EPOCHS: Set to 30 for higher accuracy potential
     history = model.fit(
         X_train_padded, 
         y_train_encoded, 
-        epochs=20, 
+        epochs=30, 
         validation_data=(X_test_padded, y_test_encoded),
         verbose=0
     )
@@ -175,7 +176,7 @@ def main():
     
     review_input = st.text_area(
         "Enter your product review text here:",
-        "This is an amazing gadget! It makes me so happy and I just love using it every day.",
+        SAMPLE_REVIEWS['joy'], # Defaulting to the best 'joy' sample for initial view
         height=150
     )
     
@@ -256,6 +257,8 @@ if __name__ == "__main__":
         # Note: If this error is displayed, it means the app failed to start due to an earlier issue,
         # likely the one we just fixed in data loading.
         st.error("Application could not start because the necessary model or data failed to load/train.")
+
+
 
 
 
