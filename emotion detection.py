@@ -52,8 +52,9 @@ def load_and_train_model():
     test_labels = ds['test']['label']
     
     # Combine train and test into one pool for 80/20 split as requested
-    all_texts = train_texts + test_texts
-    all_labels = train_labels + test_labels
+    # FIX APPLIED: Explicitly convert the dataset columns to Python lists before concatenation
+    all_texts = list(train_texts) + list(test_texts)
+    all_labels = list(train_labels) + list(test_labels)
     
     # 2. Split Data (80% Train, 20% Test)
     X_train, X_test, y_train, y_test = train_test_split(
@@ -254,4 +255,8 @@ if __name__ == "__main__":
     if model is not None and tokenizer is not None:
         main()
     else:
+        # Note: If this error is displayed, it means the app failed to start due to an earlier issue,
+        # likely the one we just fixed in data loading.
         st.error("Application could not start because the necessary model or data failed to load/train.")
+
+
