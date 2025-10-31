@@ -18,7 +18,7 @@ import tensorflow as tf
 MAX_WORDS = 20000 # Max number of words to keep in the vocabulary
 MAX_LEN = 100     # Max length of a sequence (review)
 EMBEDDING_DIM = 100 # Dimension of the word embeddings
-LSTM_UNITS = 64
+LSTM_UNITS = 128  # INCREASED CAPACITY for higher accuracy
 NUM_CLASSES = 6
 # Adjusted to 30 epochs for highest potential accuracy
 EPOCHS = 30 
@@ -41,13 +41,13 @@ SAMPLE_REVIEWS = {
 # --- Model Building Function ---
 
 def build_bilstm_model():
-    """Builds the powerful single BiLSTM model."""
+    """Builds the powerful single BiLSTM model with increased capacity."""
     model = Sequential([
         Embedding(MAX_WORDS, EMBEDDING_DIM, input_length=MAX_LEN),
         Dropout(0.3),
         Bidirectional(LSTM(LSTM_UNITS, return_sequences=True)),
         Bidirectional(LSTM(LSTM_UNITS // 2)),
-        Dense(64, activation='relu'),
+        Dense(128, activation='relu'), # Increased density
         Dropout(0.5),
         Dense(NUM_CLASSES, activation='softmax')
     ])
@@ -211,11 +211,13 @@ def main():
              color: #FFD700 !important;
              background-color: rgba(0, 0, 0, 0.6) !important; /* Slightly darker header background */
         }
-        /* Ensure table data cells (tbody td) and index (tbody th) are clearly visible */
+        /* Fix for Table word wrapping and contrast */
         .stTable tbody tr th, .stTable tbody tr td {
             color: #FFFFFF !important;
             background-color: rgba(0, 0, 0, 0.5) !important; /* Consistent dark background for body */
             border-bottom: 1px solid #3d0a52; /* subtle separator */
+            word-break: normal; /* FIX: Prevent breaking in the middle of a word */
+            white-space: normal; /* FIX: Allow normal wrapping for long reviews */
         }
         
         .stTextArea textarea:focus {
@@ -325,6 +327,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
