@@ -251,8 +251,9 @@ def main():
         unsafe_allow_html=True
     )
 
-    st.markdown('<div class="header"><h1><span style="color: #FFD700;">🧠</span> High-Accuracy Emotion Detector <span style="color: #FFD700;">🚀</span></h1></div>', unsafe_allow_html=True)
-    st.markdown("<h3 style='color: white;'>Single Bi-Directional LSTM Analysis (30 Epochs)</h3>", unsafe_allow_html=True)
+    st.markdown('<div class="header"><h1><span style="color: #FFD700;">🧠</span> Customer Emotion Detector <span style="color: #FFD700;">🚀</span></h1></div>', unsafe_allow_html=True)
+    
+    # The following line was removed: st.markdown("<h3 style='color: white;'>Single Bi-Directional LSTM Analysis (30 Epochs)</h3>", unsafe_allow_html=True)
     
     # Load and train the model (cached)
     models, tokenizer, metrics = load_and_train_model()
@@ -294,7 +295,8 @@ def main():
     # --- Evaluation Metrics Display (Moved to Bottom) ---
     st.markdown("---")
     st.markdown("<h2 style='color: #FFD700; text-align: center;'>Model Evaluation Metrics</h2>", unsafe_allow_html=True)
-    st.markdown(f"<p style='text-align: center; color: white;'>Architecture: Single BiLSTM trained for {EPOCHS} Epochs.</p>", unsafe_allow_html=True)
+    
+    # The following line was removed: st.markdown(f"<p style='text-align: center; color: white;'>Architecture: Single BiLSTM trained for {EPOCHS} Epochs.</p>", unsafe_allow_html=True)
 
     col1, col2, col3, col4 = st.columns(4)
 
@@ -319,3 +321,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
