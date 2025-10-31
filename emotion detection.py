@@ -216,8 +216,8 @@ def main():
             color: #FFFFFF !important;
             background-color: rgba(0, 0, 0, 0.5) !important; /* Consistent dark background for body */
             border-bottom: 1px solid #3d0a52; /* subtle separator */
-            word-break: normal; /* FIX: Prevent breaking in the middle of a word */
-            white-space: normal; /* FIX: Allow normal wrapping for long reviews */
+            word-break: normal; /* Prevents breaking in the middle of a word */
+            white-space: normal; /* Allows normal wrapping for long reviews */
         }
         
         .stTextArea textarea:focus {
@@ -320,10 +320,12 @@ def main():
     display_metric(col3, "Macro Recall", metrics['recall'])
     display_metric(col4, "Macro F1-Score", metrics['f1_score'])
 
-    if metrics['accuracy'] >= 0.85:
-        st.success(f"✅ Target Accuracy of 85% Achieved! Current Accuracy: {metrics['accuracy']:.4f}")
+    TARGET_ACCURACY = 0.92 # 92%
+    
+    if metrics['accuracy'] >= TARGET_ACCURACY:
+        st.success(f"✅ Target Accuracy of {TARGET_ACCURACY*100:.0f}% Achieved! Current Accuracy: {metrics['accuracy']:.4f}")
     else:
-        st.warning(f"⚠️ Target Accuracy of 85% Not Met Yet. Current Accuracy: {metrics['accuracy']:.4f}")
+        st.warning(f"⚠️ Target Accuracy of {TARGET_ACCURACY*100:.0f}% Not Met Yet. Current Accuracy: {metrics['accuracy']:.4f}")
 
 if __name__ == "__main__":
     main()
