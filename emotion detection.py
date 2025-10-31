@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -201,17 +202,15 @@ def main():
             with col2:
                 # Display all probabilities in a bar chart for context
                 st.subheader("Emotion Confidence Breakdown")
-                prob_data = {
-                    'Emotion': [label.capitalize() for label in EMOTION_LABELS],
+                
+                # FIX: Create a proper Pandas DataFrame for st.bar_chart
+                df_probs = pd.DataFrame({
                     'Confidence': raw_probs
-                }
+                }, index=[label.capitalize() for label in EMOTION_LABELS])
                 
-                # Create a simple DataFrame for bar chart
-                df = tf.convert_to_tensor(prob_data['Confidence']).numpy()
-                df = df.reshape(1, -1)
-                
-                # Custom chart using st.bar_chart for a single row of data
-                st.bar_chart(df, x=None, y=prob_data['Emotion'])
+                # Custom chart using st.bar_chart. Since the index is categorical (Emotion), 
+                # Streamlit automatically plots it against the single 'Confidence' column.
+                st.bar_chart(df_probs)
                 
             st.divider()
 
@@ -258,5 +257,6 @@ if __name__ == "__main__":
         # Note: If this error is displayed, it means the app failed to start due to an earlier issue,
         # likely the one we just fixed in data loading.
         st.error("Application could not start because the necessary model or data failed to load/train.")
+
 
 
