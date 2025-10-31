@@ -96,12 +96,11 @@ def load_and_train_model():
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     
     # 6. Train the Model
-    # Using only 5 epochs for speed in a Streamlit demo; 
-    # a real application would use more (e.g., 10-20)
+    # INCREASED EPOCHS: Changed from 5 to 20 to allow the model to better learn minority classes
     history = model.fit(
         X_train_padded, 
         y_train_encoded, 
-        epochs=5, 
+        epochs=20, 
         validation_data=(X_test_padded, y_test_encoded),
         verbose=0
     )
@@ -257,6 +256,8 @@ if __name__ == "__main__":
         # Note: If this error is displayed, it means the app failed to start due to an earlier issue,
         # likely the one we just fixed in data loading.
         st.error("Application could not start because the necessary model or data failed to load/train.")
+
+
 
 
 
