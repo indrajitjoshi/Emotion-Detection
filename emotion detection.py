@@ -162,6 +162,66 @@ def main():
         initial_sidebar_state="collapsed"
     )
     
+    # --- CUSTOM CSS FOR MULTICOLOR BACKGROUND AND INTERACTIVITY ---
+    st.markdown(
+        """
+        <style>
+        /* Target the main app container for the gradient */
+        .stApp {
+            /* Define a large, slow-moving gradient background with multiple colors */
+            background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF, #FF6B6B);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite; /* Slow, smooth animation */
+            padding-top: 3rem; 
+        }
+        
+        /* Keyframes for the slow, interactive color shift */
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        /* Ensure content blocks are readable over the dynamic background by making them slightly transparent */
+        /* Targets the main content block and various internal Streamlit containers */
+        .main, .stPageLink, .stVerticalBlock, .stMetric, .stTable, .stTextArea {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white card for readability */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+        }
+        
+        /* Apply solid background to the code box for legibility */
+        pre {
+            background-color: rgba(240, 240, 240, 1.0) !important;
+        }
+
+        /* Ensure button stands out */
+        .stButton>button {
+            background-color: #4D96FF;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .stButton>button:hover {
+            background-color: #3876c5;
+        }
+
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    # --- END CUSTOM CSS ---
+
     st.title("🛍️ Product Review Emotion Detector (BiLSTM)")
     st.markdown("""
         This data science application uses a **Bi-Directional LSTM (BiLSTM)** neural network, trained on the **dair-ai/emotion** dataset, 
@@ -257,6 +317,8 @@ if __name__ == "__main__":
         # Note: If this error is displayed, it means the app failed to start due to an earlier issue,
         # likely the one we just fixed in data loading.
         st.error("Application could not start because the necessary model or data failed to load/train.")
+
+
 
 
 
