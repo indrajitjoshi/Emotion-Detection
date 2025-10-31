@@ -209,7 +209,15 @@ def main():
         /* Ensure table header text is visible */
         .stTable th {
              color: #FFD700 !important;
+             background-color: rgba(0, 0, 0, 0.6) !important; /* Slightly darker header background */
         }
+        /* Ensure table data cells (tbody td) and index (tbody th) are clearly visible */
+        .stTable tbody tr th, .stTable tbody tr td {
+            color: #FFFFFF !important;
+            background-color: rgba(0, 0, 0, 0.5) !important; /* Consistent dark background for body */
+            border-bottom: 1px solid #3d0a52; /* subtle separator */
+        }
+        
         .stTextArea textarea:focus {
             border: 2px solid #FFD700; /* Light yellow focus */
             box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
@@ -253,8 +261,6 @@ def main():
 
     st.markdown('<div class="header"><h1><span style="color: #FFD700;">🧠</span> Customer Emotion Detector <span style="color: #FFD700;">🚀</span></h1></div>', unsafe_allow_html=True)
     
-    # The following line was removed: st.markdown("<h3 style='color: white;'>Single Bi-Directional LSTM Analysis (30 Epochs)</h3>", unsafe_allow_html=True)
-    
     # Load and train the model (cached)
     models, tokenizer, metrics = load_and_train_model()
 
@@ -296,8 +302,6 @@ def main():
     st.markdown("---")
     st.markdown("<h2 style='color: #FFD700; text-align: center;'>Model Evaluation Metrics</h2>", unsafe_allow_html=True)
     
-    # The following line was removed: st.markdown(f"<p style='text-align: center; color: white;'>Architecture: Single BiLSTM trained for {EPOCHS} Epochs.</p>", unsafe_allow_html=True)
-
     col1, col2, col3, col4 = st.columns(4)
 
     # Function to display metric in custom style
@@ -321,4 +325,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 
